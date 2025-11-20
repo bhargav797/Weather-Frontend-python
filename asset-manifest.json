@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Weather-Frontend-python/static/css/main.f590c462.css",
+    "main.js": "/Weather-Frontend-python/static/js/main.263b8e44.js",
+    "index.html": "/Weather-Frontend-python/index.html",
+    "main.f590c462.css.map": "/Weather-Frontend-python/static/css/main.f590c462.css.map",
+    "main.263b8e44.js.map": "/Weather-Frontend-python/static/js/main.263b8e44.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f590c462.css",
+    "static/js/main.263b8e44.js"
+  ]
+}
