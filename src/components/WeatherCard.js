@@ -1,35 +1,39 @@
+// src/components/WeatherCard.jsx
 import React from "react";
 
-function WeatherLine({ label, value }) {
+export default function WeatherCard({ data }) {
+  if (!data) return null;
+
+  // adapt fields to how your backend returns them
+  const { name, country, temp, description, humidity, wind_speed } = transform(data);
+
   return (
-    <div className="line">
-      <span className="label">{label}</span>
-      <span className="value">{value}</span>
-    </div>
+    <article className="card" role="region" aria-label={`Weather for ${name}`}>
+      <header className="card-head">
+        <h2>{name}{country ? `, ${country}` : ""}</h2>
+        <div className="desc">{description}</div>
+      </header>
+
+      <div className="card-body">
+        <div className="temp">{Math.round(temp)}°</div>
+
+        <div className="grid">
+          <div className="line"><div className="label">Humidity</div><div className="value">{humidity}%</div></div>
+          <div className="line"><div className="label">Wind</div><div className="value">{wind_speed} m/s</div></div>
+          {/* add more lines as needed */}
+        </div>
+      </div>
+    </article>
   );
 }
 
-export default function WeatherCard({ data }) {
-  const w = (data?.weather && data.weather[0]) || {};
-  const main = data?.main || {};
-  const wind = data?.wind || {};
-  return (
-    <div className="card">
-      <div className="card-head">
-        <h2>{data.city}{data.country ? `, ${data.country}` : ""}</h2>
-        <div className="desc">{w.main} — {w.description}</div>
-      </div>
-
-      <div className="card-body">
-        <div className="temp">{main.temp != null ? `${Math.round(main.temp)}°C` : "—"}</div>
-        <div className="grid">
-          <WeatherLine label="Feels like" value={main.feels_like != null ? `${Math.round(main.feels_like)}°C` : "—"} />
-          <WeatherLine label="Humidity" value={main.humidity != null ? `${main.humidity}%` : "—"} />
-          <WeatherLine label="Pressure" value={main.pressure != null ? `${main.pressure} hPa` : "—"} />
-          <WeatherLine label="Wind" value={wind.speed != null ? `${wind.speed} m/s` : "—"} />
-          <WeatherLine label="Lat / Lon" value={data.coord ? `${data.coord.lat}, ${data.coord.lon}` : "—"} />
-        </div>
-      </div>
-    </div>
-  );
+function transform(raw) {
+  // try to be resilient in extracting fields; adapt to your API shape
+  const name = raw?.name || raw?.city || "Unknown";
+  const country = raw?.sys?.country || raw?.country;
+  const temp = raw?.main?.temp ?? raw?.temp ?? 0;
+  const description = raw?.weather?.[0]?.description || raw?.description || "";
+  const humidity = raw?.main?.humidity ?? raw?.humidity ?? "-";
+  const wind_speed = raw?.wind?.speed ?? raw?.wind_speed ?? "-";
+  return { name, country, temp, description, humidity, wind_speed };
 }

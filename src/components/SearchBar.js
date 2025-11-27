@@ -1,31 +1,36 @@
+// src/components/SearchBar.jsx
 import React, { useState } from "react";
 
-export default function SearchBar({ onSearch, onUseLocation, loading }) {
-  const [city, setCity] = useState("");
+export default function SearchBar({ onSearch, onUseLocation, loading = false }) {
+  const [q, setQ] = useState("");
 
   function submit(e) {
-    e && e.preventDefault();
-    if (!city.trim()) return;
-    onSearch(city.trim());
+    e.preventDefault();
+    if (!q.trim()) return;
+    onSearch(q.trim());
   }
 
   return (
-    <form className="search-row" onSubmit={submit}>
+    <form className="search-row inline" onSubmit={submit} aria-label="Search form">
       <input
-        className="city-input"
+        className="city-input safe-shrink"
+        type="search"
         placeholder="Enter city (e.g., Mumbai, Tokyo)"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        disabled={loading}
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        aria-label="Enter city"
+        autoComplete="off"
       />
-      <button className="btn primary" type="submit" disabled={loading}>
-        Search
+
+      <button className="btn primary" type="submit" aria-label="Search" disabled={loading}>
+        {loading ? "Searching..." : "Search"}
       </button>
+
       <button
-        className="btn secondary"
         type="button"
+        className="btn location"
         onClick={onUseLocation}
-        disabled={loading}
+        aria-label="Use my location"
       >
         📍 Use My Location
       </button>

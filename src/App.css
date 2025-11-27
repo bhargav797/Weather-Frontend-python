@@ -5,11 +5,6 @@
   --accent:#2b6ef6;
   --text:#102030;
 
-  /* spacing & sizing scale (use rems for responsive scaling) */
-  --space-xs:0.25rem;
-  --space-sm:0.5rem;
-  --space-md:1rem;
-  --space-lg:1.5rem;
   --radius-sm:0.5rem;
   --radius-md:0.75rem;
   --radius-lg:1rem;
@@ -17,244 +12,199 @@
   --max-content-width:1100px;
 }
 
-/* ----------------------
-   Base / resets
-   ---------------------- */
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-html{font-size:16px; -webkit-text-size-adjust:100%;}
-body{
+/* -------------------- base / reset -------------------- */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; }
+html { font-size:16px; -webkit-text-size-adjust:100%; }
+body {
   margin:0;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-  background:var(--bg);
-  color:var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing:antialiased;
   line-height:1.4;
-  -webkit-tap-highlight-color: transparent;
 }
 
-/* Make images/videos fluid */
+/* make media fluid */
 img, picture, video, svg { max-width:100%; height:auto; display:block; }
 
-/* Top-level page container (keeps content centered with responsive padding) */
-.page{
+/* top-level page wrapper */
+.page {
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:2.25rem 1rem; /* 36px 16px equivalent */
+  padding: 36px 12px;
 }
 
-/* Constrain content width and add inner padding — reuse across pages */
+/* centered content container */
 .container {
   width:100%;
-  max-width:var(--max-content-width);
+  max-width:920px;
   margin:0 auto;
-  padding-inline:1rem;
+  padding-inline:16px;
 }
 
-/* ----------------------
-   Header
-   ---------------------- */
-.header{
+/* -------------------- header -------------------- */
+.header {
   text-align:center;
-  margin-top:0.25rem;
+  margin-top:6px;
 }
-.header h1{
-  font-size:2.5rem; /* 40px */
+.header h1 {
+  font-size:2.5rem;
   margin:0;
   font-weight:800;
   line-height:1.05;
 }
-.sub{ color:var(--muted); margin-top:0.5rem; }
+.sub { color:var(--muted); margin-top:8px; }
 
-/* ----------------------
-   Main area
-   ---------------------- */
-.main{
+/* -------------------- main -------------------- */
+.main {
   width:100%;
-  margin-top:1.125rem; /* 18px */
+  margin-top:18px;
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* Search row: mobile-first stacked, becomes inline on wider screens */
-.search-row{
+/* search-row (mobile-first stacked) */
+.search-row {
   display:flex;
-  gap:0.625rem; /* ~10px */
+  gap:12px;
   width:100%;
   align-items:center;
   justify-content:center;
-  flex-direction:column; /* stack on mobile */
+  flex-direction:column;
+  padding:6px 0;
 }
 
-/* Input */
-.city-input{
+/* switch to inline on medium screens */
+.search-row.inline { flex-direction:row; justify-content:flex-start; }
+
+/* IMPORTANT: min-width:0 allows flex children to shrink and prevents overflow */
+.city-input {
   width:100%;
-  padding:0.875rem 1rem; /* 14px 16px */
-  border-radius:0.75rem;
-  border:1px solid rgba(0,0,0,0.08);
+  min-width:0;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.12);
   background:var(--card);
-  font-size:1rem;
+  font-size:16px;
   outline:none;
   box-shadow:0 1px 0 rgba(0,0,0,0.02) inset;
-  min-width:0; /* remove fixed min-width that breaks small screens */
   -webkit-appearance:none;
   appearance:none;
+  flex:1 1 auto;
 }
 
-/* Focus ring accessible */
-.city-input:focus{
-  box-shadow:0 0 0 6px rgba(43,110,246,0.07);
-  border-color:var(--accent);
+/* focus */
+.city-input:focus {
+  box-shadow: 0 0 0 6px rgba(43,110,246,0.07);
+  border-color: var(--accent);
 }
 
-/* Buttons */
-.btn{
+/* buttons */
+.btn {
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:0.65rem 0.85rem; /* touch friendly */
-  border-radius:0.625rem;
+  padding:10px 14px;
+  border-radius:10px;
   border:1px solid rgba(0,0,0,0.08);
   background:var(--card);
   cursor:pointer;
   font-weight:600;
-  font-size:0.95rem;
-  min-height:44px; /* touch target guideline */
-  gap:0.5rem;
+  min-height:44px;
   white-space:nowrap;
+  flex:0 0 auto;
 }
 
-/* variants */
-.btn.primary{
+.btn.primary {
   background:var(--accent);
   color:#fff;
   border:none;
-  min-width:6rem;
+  min-width:86px;
 }
-.btn.secondary{
+.btn.secondary {
   background:transparent;
   border:1px solid rgba(0,0,0,0.06);
 }
 
-/* When search-row becomes inline, allow input to grow and button to size */
-.search-inline { width:100%; display:flex; gap:0.5rem; align-items:center; }
-.search-inline .city-input { flex:1; }
-.search-inline .btn { flex:0 0 auto; }
+/* location small button */
+.btn.location { padding:10px; font-size:0.95rem; }
 
-/* feedback area */
-.feedback{margin-top:1rem; min-height:1.25rem}
-.muted{color:var(--muted)}
-.error{color:#cc3b3b}
+/* feedback */
+.feedback { margin-top:16px; min-height:20px; text-align:center; }
+.muted { color:var(--muted); }
+.error { color:#cc3b3b; }
 
-/* ----------------------
-   Cards / results
-   ---------------------- */
-.result-area{
+/* result card */
+.result-area { width:100%; display:flex; justify-content:center; margin-top:20px; }
+.card {
   width:100%;
-  display:flex;
-  justify-content:center;
-  margin-top:1.25rem;
-}
-
-.card{
-  width:100%;
+  max-width:760px;
   background:var(--card);
-  border-radius:0.75rem;
-  padding:1.125rem;
+  border-radius:12px;
+  padding:18px;
   box-shadow:0 8px 20px rgba(16,32,48,0.06);
   border:1px solid rgba(0,0,0,0.03);
-  max-width:760px;
 }
 
-/* Card header */
-.card-head{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-}
-.card-head h2{ margin:0; font-size:1.375rem; } /* ~22px */
-.desc{ color:var(--muted); margin-top:0.375rem; }
+/* card header/body styles */
+.card-head { display:flex; flex-direction:column; align-items:flex-start; }
+.card-head h2 { margin:0; font-size:22px; }
+.desc { color:var(--muted); margin-top:6px; }
+.card-body { display:flex; flex-direction:column; margin-top:14px; }
+.temp { font-size:46px; font-weight:700; margin-bottom:8px; }
 
-/* body */
-.card-body{ display:flex; flex-direction:column; margin-top:0.875rem; }
-.temp{ font-size:2.875rem; font-weight:700; margin-bottom:0.5rem; } /* ~46px */
-
-/* responsive grid that adapts column count automatically */
-.grid{
+/* responsive grid for stats */
+.grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-  gap:0.5rem;
-  margin-top:0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap:8px;
+  margin-top:10px;
 }
-
-.line{
+.line {
   display:flex;
   justify-content:space-between;
-  padding:0.5rem 0.625rem;
-  border-radius:0.5rem;
+  padding:8px 10px;
+  border-radius:8px;
   background:rgba(0,0,0,0.02);
 }
-.label{ color:var(--muted); font-size:0.95rem; }
-.value{ font-weight:600; font-size:0.95rem; }
+.label { color:var(--muted); }
+.value { font-weight:600; }
 
-/* Footer */
-.footer{ margin-top:1.5rem; color:var(--muted); font-size:0.875rem; }
+/* footer */
+.footer { margin-top:26px; color:var(--muted); font-size:14px; text-align:center; }
 
-/* ----------------------
-   Small device tweaks (<=540px)
-   ---------------------- */
-@media (max-width:540px){
-  .header h1{ font-size:1.75rem; } /* 28px */
-  .city-input{ padding:0.75rem; font-size:0.95rem; }
-  .btn{ padding:0.55rem 0.65rem; font-size:0.95rem; min-height:44px; }
-  .card{ padding:0.875rem; border-radius:0.625rem; }
-  .temp{ font-size:2rem; }
+/* -------------------- breakpoints -------------------- */
+@media (max-width:420px) {
+  .header h1 { font-size:1.75rem; }
+  .city-input { padding:12px 14px; font-size:15px; }
+  .btn { padding:10px 12px; font-size:0.95rem; min-height:42px; }
+  .card { padding:14px; border-radius:10px; }
+  .temp { font-size:34px; }
 }
 
-/* ----------------------
-   Medium screens (>=640px)
-   ---------------------- */
-@media (min-width:640px){
-  /* keep search stacked up to 640 but allow optional inline class */
-  .header h1{ font-size:2.25rem; }
+@media (min-width:640px) {
+  .search-row { flex-direction:row; justify-content:flex-start; }
+  .search-row .city-input { max-width:640px; }
+  .header h1 { font-size:2.25rem; }
 }
 
-/* ----------------------
-   Larger screens (>=768px)
-   ---------------------- */
-@media (min-width:768px){
-  .page{ padding:2.5rem 1.5rem; }
-  .main{ margin-top:1.5rem; }
-  .search-row{ flex-direction:row; justify-content:flex-start; }
-  .search-row.search-inline { align-items:center; }
-  .card{ padding:1.5rem; }
-  .temp{ font-size:3.25rem; }
-  .header h1{ font-size:2.75rem; }
+@media (min-width:768px) {
+  .page { padding:36px 24px; }
+  .container { padding-inline:24px; }
+  .card { padding:22px; }
+  .temp { font-size:3.25rem; }
 }
 
-/* ----------------------
-   Wide / Desktop (>=1024px)
-   ---------------------- */
-@media (min-width:1024px){
-  .container { padding-inline:2rem; }
-  .page{ padding-inline:2rem; }
-  .card{ max-width:900px; }
-  .grid{ gap:0.75rem; }
-  .header h1{ font-size:3rem; }
+@media (min-width:1024px) {
+  .container { max-width:1100px; }
+  .header h1 { font-size:3rem; }
+  .grid { gap:12px; }
 }
 
-/* ----------------------
-   Utility helpers (optional)
-   ---------------------- */
-.hidden{ display:none !important; }
-.center{ display:flex; align-items:center; justify-content:center; }
-
-/* Small helper to avoid horizontal overflow issues */
-.safe-inline {
-  min-width:0; /* prevents flex children from overflowing container */
-  overflow-wrap:break-word;
-  word-break:break-word;
-}
+/* helper to avoid overflow for flex children */
+.safe-shrink { min-width:0; }
+.center { display:flex; align-items:center; justify-content:center; }
