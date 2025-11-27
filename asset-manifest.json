@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Weather-Frontend-python/static/css/main.723716b1.css",
+    "main.css": "/Weather-Frontend-python/static/css/main.6d813392.css",
     "main.js": "/Weather-Frontend-python/static/js/main.4867b9d5.js",
     "index.html": "/Weather-Frontend-python/index.html",
-    "main.723716b1.css.map": "/Weather-Frontend-python/static/css/main.723716b1.css.map",
+    "main.6d813392.css.map": "/Weather-Frontend-python/static/css/main.6d813392.css.map",
     "main.4867b9d5.js.map": "/Weather-Frontend-python/static/js/main.4867b9d5.js.map"
   },
   "entrypoints": [
-    "static/css/main.723716b1.css",
+    "static/css/main.6d813392.css",
     "static/js/main.4867b9d5.js"
   ]
 }
