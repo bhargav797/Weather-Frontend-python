@@ -4,115 +4,257 @@
   --muted:#7b8794;
   --accent:#2b6ef6;
   --text:#102030;
+
+  /* spacing & sizing scale (use rems for responsive scaling) */
+  --space-xs:0.25rem;
+  --space-sm:0.5rem;
+  --space-md:1rem;
+  --space-lg:1.5rem;
+  --radius-sm:0.5rem;
+  --radius-md:0.75rem;
+  --radius-lg:1rem;
+
+  --max-content-width:1100px;
 }
 
+/* ----------------------
+   Base / resets
+   ---------------------- */
 *{box-sizing:border-box}
-body,html,#root{height:100%}
+html,body,#root{height:100%}
+html{font-size:16px; -webkit-text-size-adjust:100%;}
 body{
   margin:0;
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
   background:var(--bg);
   color:var(--text);
   -webkit-font-smoothing:antialiased;
+  line-height:1.4;
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* Make images/videos fluid */
+img, picture, video, svg { max-width:100%; height:auto; display:block; }
+
+/* Top-level page container (keeps content centered with responsive padding) */
 .page{
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:36px 16px;
+  padding:2.25rem 1rem; /* 36px 16px equivalent */
 }
 
-/* Header */
-.header{text-align:center;margin-top:6px}
+/* Constrain content width and add inner padding — reuse across pages */
+.container {
+  width:100%;
+  max-width:var(--max-content-width);
+  margin:0 auto;
+  padding-inline:1rem;
+}
+
+/* ----------------------
+   Header
+   ---------------------- */
+.header{
+  text-align:center;
+  margin-top:0.25rem;
+}
 .header h1{
-  font-size:40px;
+  font-size:2.5rem; /* 40px */
   margin:0;
   font-weight:800;
+  line-height:1.05;
 }
-.sub{color:var(--muted);margin-top:8px}
+.sub{ color:var(--muted); margin-top:0.5rem; }
 
-/* Main */
-.main{width:100%;max-width:920px;margin-top:18px;display:flex;flex-direction:column;align-items:center}
+/* ----------------------
+   Main area
+   ---------------------- */
+.main{
+  width:100%;
+  margin-top:1.125rem; /* 18px */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
+/* Search row: mobile-first stacked, becomes inline on wider screens */
 .search-row{
   display:flex;
-  gap:10px;
+  gap:0.625rem; /* ~10px */
   width:100%;
   align-items:center;
   justify-content:center;
+  flex-direction:column; /* stack on mobile */
 }
 
+/* Input */
 .city-input{
-  flex:1;
-  min-width:260px;
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,0.12);
+  width:100%;
+  padding:0.875rem 1rem; /* 14px 16px */
+  border-radius:0.75rem;
+  border:1px solid rgba(0,0,0,0.08);
   background:var(--card);
-  font-size:16px;
+  font-size:1rem;
   outline:none;
   box-shadow:0 1px 0 rgba(0,0,0,0.02) inset;
+  min-width:0; /* remove fixed min-width that breaks small screens */
+  -webkit-appearance:none;
+  appearance:none;
 }
 
-.city-input:focus{box-shadow:0 0 0 4px rgba(43,110,246,0.08)}
+/* Focus ring accessible */
+.city-input:focus{
+  box-shadow:0 0 0 6px rgba(43,110,246,0.07);
+  border-color:var(--accent);
+}
 
+/* Buttons */
 .btn{
-  padding:10px 14px;
-  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0.65rem 0.85rem; /* touch friendly */
+  border-radius:0.625rem;
   border:1px solid rgba(0,0,0,0.08);
   background:var(--card);
   cursor:pointer;
   font-weight:600;
+  font-size:0.95rem;
+  min-height:44px; /* touch target guideline */
+  gap:0.5rem;
+  white-space:nowrap;
 }
 
+/* variants */
 .btn.primary{
   background:var(--accent);
-  color:white;
+  color:#fff;
   border:none;
-  min-width:86px;
+  min-width:6rem;
 }
-
 .btn.secondary{
   background:transparent;
   border:1px solid rgba(0,0,0,0.06);
 }
 
-/* feedback */
-.feedback{margin-top:16px;min-height:20px}
+/* When search-row becomes inline, allow input to grow and button to size */
+.search-inline { width:100%; display:flex; gap:0.5rem; align-items:center; }
+.search-inline .city-input { flex:1; }
+.search-inline .btn { flex:0 0 auto; }
+
+/* feedback area */
+.feedback{margin-top:1rem; min-height:1.25rem}
 .muted{color:var(--muted)}
 .error{color:#cc3b3b}
 
-/* card */
-.result-area{width:100%;display:flex;justify-content:center;margin-top:20px}
-.card{
+/* ----------------------
+   Cards / results
+   ---------------------- */
+.result-area{
   width:100%;
-  max-width:760px;
-  background:var(--card);
-  border-radius:12px;
-  padding:18px;
-  box-shadow:0 8px 20px rgba(16,32,48,0.06);
-  border:1px solid rgba(0,0,0,0.03);
+  display:flex;
+  justify-content:center;
+  margin-top:1.25rem;
 }
 
-.card-head{display:flex;flex-direction:column;align-items:flex-start}
-.card-head h2{margin:0;font-size:22px}
-.desc{color:var(--muted);margin-top:6px}
+.card{
+  width:100%;
+  background:var(--card);
+  border-radius:0.75rem;
+  padding:1.125rem;
+  box-shadow:0 8px 20px rgba(16,32,48,0.06);
+  border:1px solid rgba(0,0,0,0.03);
+  max-width:760px;
+}
 
-.card-body{display:flex;flex-direction:column;margin-top:14px}
-.temp{font-size:46px;font-weight:700;margin-bottom:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
-.line{display:flex;justify-content:space-between;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.02)}
-.label{color:var(--muted)}
-.value{font-weight:600}
+/* Card header */
+.card-head{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.card-head h2{ margin:0; font-size:1.375rem; } /* ~22px */
+.desc{ color:var(--muted); margin-top:0.375rem; }
+
+/* body */
+.card-body{ display:flex; flex-direction:column; margin-top:0.875rem; }
+.temp{ font-size:2.875rem; font-weight:700; margin-bottom:0.5rem; } /* ~46px */
+
+/* responsive grid that adapts column count automatically */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:0.5rem;
+  margin-top:0.5rem;
+}
+
+.line{
+  display:flex;
+  justify-content:space-between;
+  padding:0.5rem 0.625rem;
+  border-radius:0.5rem;
+  background:rgba(0,0,0,0.02);
+}
+.label{ color:var(--muted); font-size:0.95rem; }
+.value{ font-weight:600; font-size:0.95rem; }
 
 /* Footer */
-.footer{margin-top:26px;color:var(--muted);font-size:14px}
+.footer{ margin-top:1.5rem; color:var(--muted); font-size:0.875rem; }
 
-/* responsiveness */
+/* ----------------------
+   Small device tweaks (<=540px)
+   ---------------------- */
 @media (max-width:540px){
-  .header h1{font-size:28px}
-  .city-input{padding:12px}
-  .btn{padding:10px 12px}
+  .header h1{ font-size:1.75rem; } /* 28px */
+  .city-input{ padding:0.75rem; font-size:0.95rem; }
+  .btn{ padding:0.55rem 0.65rem; font-size:0.95rem; min-height:44px; }
+  .card{ padding:0.875rem; border-radius:0.625rem; }
+  .temp{ font-size:2rem; }
+}
+
+/* ----------------------
+   Medium screens (>=640px)
+   ---------------------- */
+@media (min-width:640px){
+  /* keep search stacked up to 640 but allow optional inline class */
+  .header h1{ font-size:2.25rem; }
+}
+
+/* ----------------------
+   Larger screens (>=768px)
+   ---------------------- */
+@media (min-width:768px){
+  .page{ padding:2.5rem 1.5rem; }
+  .main{ margin-top:1.5rem; }
+  .search-row{ flex-direction:row; justify-content:flex-start; }
+  .search-row.search-inline { align-items:center; }
+  .card{ padding:1.5rem; }
+  .temp{ font-size:3.25rem; }
+  .header h1{ font-size:2.75rem; }
+}
+
+/* ----------------------
+   Wide / Desktop (>=1024px)
+   ---------------------- */
+@media (min-width:1024px){
+  .container { padding-inline:2rem; }
+  .page{ padding-inline:2rem; }
+  .card{ max-width:900px; }
+  .grid{ gap:0.75rem; }
+  .header h1{ font-size:3rem; }
+}
+
+/* ----------------------
+   Utility helpers (optional)
+   ---------------------- */
+.hidden{ display:none !important; }
+.center{ display:flex; align-items:center; justify-content:center; }
+
+/* Small helper to avoid horizontal overflow issues */
+.safe-inline {
+  min-width:0; /* prevents flex children from overflowing container */
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
