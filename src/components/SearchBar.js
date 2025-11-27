@@ -22,7 +22,12 @@ export default function SearchBar({ onSearch, onUseLocation, loading = false }) 
         autoComplete="off"
       />
 
-      <button className="btn primary" type="submit" aria-label="Search" disabled={loading}>
+      <button
+        className="btn primary"
+        type="submit"
+        aria-label="Search"
+        disabled={loading}
+      >
         {loading ? "Searching..." : "Search"}
       </button>
 
